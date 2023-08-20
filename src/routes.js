@@ -35,4 +35,24 @@ export const routes = [
       return res.end(JSON.stringify(tasks));
     },
   },
+  {
+    method: "PUT",
+    path: buildRoutePath("/tasks/:id"),
+    handler: (req, res) => {
+      const { id } = req.params;
+
+      const task = database.select("tasks", id);
+
+      const updatedTask = {
+        ...task,
+        description,
+        title,
+        updatedAt: new Date(),
+      };
+
+      database.update("tasks", id, updatedTask);
+
+      return res.writeHead(204).end();
+    },
+  },
 ];
