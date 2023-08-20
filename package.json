@@ -1,13 +1,13 @@
 {
-  "name": "desafio-01",
+  "name": "task-manager-api",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "Developed API with learning purposes of routing and request handling in NodeJS",
   "main": "server.js",
   "scripts": {
     "dev": "node --watch src/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Thales Rocha",
   "license": "ISC"
 }

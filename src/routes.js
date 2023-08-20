@@ -14,7 +14,7 @@ export const routes = [
       if (!title || !description) {
         return res.writeHead(400).end(
           JSON.stringify({
-            error: "Os campos `titulo` e `descricao` são obrigatórios!",
+            error: "`title` and `description` required!",
           })
         );
       }
@@ -53,7 +53,7 @@ export const routes = [
       if (!task) {
         return res
           .writeHead(404)
-          .end(JSON.stringify({ error: "O Id informado não foi encontrado!" }));
+          .end(JSON.stringify({ error: "Id not found!" }));
       }
 
       const { title, description } = req.body;
@@ -61,7 +61,7 @@ export const routes = [
       if (!title || !description) {
         return res.writeHead(400).end(
           JSON.stringify({
-            error: "Os campos `titulo` e `descricao` são obrigatórios!",
+            error: "`title` and `description` required!",
           })
         );
       }
@@ -89,7 +89,7 @@ export const routes = [
       if (!task) {
         return res
           .writeHead(404)
-          .end(JSON.stringify({ error: "O Id informado não foi encontrado!" }));
+          .end(JSON.stringify({ error: "Id not found!" }));
       }
 
       database.delete("tasks", id);
@@ -108,7 +108,7 @@ export const routes = [
       if (!task) {
         return res
           .writeHead(404)
-          .end(JSON.stringify({ error: "O Id informado não foi encontrado!" }));
+          .end(JSON.stringify({ error: "Id not found!" }));
       }
 
       const updatedTask = {
