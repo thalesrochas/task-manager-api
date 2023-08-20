@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-
 import { Database } from "./database.js";
 import { buildRoutePath } from "./utils/buildRoutePath.js";
 
@@ -11,6 +10,14 @@ export const routes = [
     path: buildRoutePath("/tasks"),
     handler: (req, res) => {
       const { title, description } = req.body;
+
+      if (!title || !description) {
+        return res.writeHead(400).end(
+          JSON.stringify({
+            error: "Os campos `titulo` e `descricao` são obrigatórios!",
+          })
+        );
+      }
 
       const task = {
         id: randomUUID(),
@@ -43,6 +50,22 @@ export const routes = [
 
       const task = database.select("tasks", id);
 
+      if (!task) {
+        return res
+          .writeHead(404)
+          .end(JSON.stringify({ error: "O Id informado não foi encontrado!" }));
+      }
+
+      const { title, description } = req.body;
+
+      if (!title || !description) {
+        return res.writeHead(400).end(
+          JSON.stringify({
+            error: "Os campos `titulo` e `descricao` são obrigatórios!",
+          })
+        );
+      }
+
       const updatedTask = {
         ...task,
         description,
@@ -61,6 +84,14 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params;
 
+      const task = database.select("tasks", id);
+
+      if (!task) {
+        return res
+          .writeHead(404)
+          .end(JSON.stringify({ error: "O Id informado não foi encontrado!" }));
+      }
+
       database.delete("tasks", id);
 
       return res.writeHead(204).end();
@@ -73,6 +104,12 @@ export const routes = [
       const { id } = req.params;
 
       const task = database.select("tasks", id);
+
+      if (!task) {
+        return res
+          .writeHead(404)
+          .end(JSON.stringify({ error: "O Id informado não foi encontrado!" }));
+      }
 
       const updatedTask = {
         ...task,
